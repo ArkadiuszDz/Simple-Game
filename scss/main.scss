@@ -1,0 +1,263 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+@font-face {
+	font-family: 'Walter';
+	src: url('../fonts/WalterTurncoat-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+header{
+    h1{
+        font-family: 'Walter';
+        text-align: center;
+        color: #fdf900;
+    }
+}
+
+.container{
+    width: 90%;
+    margin: 0 auto;
+    background-color: gray;
+}
+
+.selectBox{
+    margin: 0 auto;
+    width: 250px;
+    padding-top: 20px;
+    label{
+        color: white;
+        font-size: 20px;
+        font-family: 'Walter';
+    }
+    select{
+        font-family: 'Walter';
+        background: none;
+        font-size: 16px;
+        color: white;
+        border: none;
+        border-bottom: 1px solid darkslategrey;
+        option{
+            color: black;
+            background-color: darkgray;
+        }
+    }
+}
+
+.topPanel{
+    margin: 0 auto;
+    width: 250px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+        margin-right: 20px;
+        font-family: 'Walter';
+        color: white;
+        font-size: 22px;
+    }
+}
+
+.square{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index: 2;
+}
+
+.square-hollow{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border: 2px solid white;
+    z-index: 2;
+}
+
+.circle{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+}
+
+.circle-hollow{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    border: 2px solid white;
+    z-index: 2;
+}
+
+.triangle{
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid green;
+    position: absolute;
+    z-index: 2;
+  }
+
+.triangle-wrap{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border-top: 2px solid white;
+}
+
+  .triangle-hollow {
+    position: absolute;
+    margin: auto;
+    top: -50px;
+    left: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+button#start{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: green;
+    width: 90px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+    font-family: 'Walter';
+}
+
+.wrapper{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 340px;
+    margin: 0 auto;
+    #gamePanel{
+        width: 100%;
+        height: 400px;   
+        background-color: black;
+        position: relative;
+        padding: 5px;
+    }
+}
+
+.question{
+    width: 35px;
+    height: 35px;
+    float: left;
+    background-color: black;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.answer{
+    width: 200px;
+    margin: 0 auto;
+    padding-top: 15px;
+    &::after{
+        content: "";
+        clear: both;
+        display: block;
+    }
+    input{
+        width: 50px;
+        height: 25px;
+        margin-top: 5px;
+        margin-left: 20px;
+        border-radius: 5px;
+        border: 1px solid black;
+        text-align: right;
+    
+    }
+}
+
+.resultCheck{
+    margin: 0 auto;
+    width: 500px;
+    background-color: #bbb9b9;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 10px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 30px;
+    p{
+        text-align: center;
+        font-family: 'Walter';
+        font-size: 22px;
+    }
+    button{
+        display: block;
+        margin: 0 auto;
+        font-family: 'Walter';
+        padding: 10px;
+        background-color: yellow;
+        color: black;
+        width: 100px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-top: 20px;
+    }
+}
+
+.scoreMessage{
+    position: absolute;
+    background-color: white;
+    margin: 0 auto;
+    width: 350px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 15px;
+    border-radius: 5px;
+    h2,h4{
+        text-align: center;
+        font-family: 'Walter';
+    }
+}
+
+.buttonWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    button{
+        width: 60px;
+        background-color: transparent;
+        padding: 6px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-family: 'Walter';
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
+}
+
+.result{
+    font-family: 'Walter';
+    font-size: 24px;
+    width: 250px;
+    margin: 0 auto;
+    color: white;
+    padding-bottom: 20px;
+}
