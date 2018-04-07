@@ -11,18 +11,20 @@
 	font-style: normal;
 }
 
+
 header{
     h1{
         font-family: 'Walter';
         text-align: center;
-        color: #fdf900;
+        //color: #fdf900;
+        color: black;
     }
 }
 
 .container{
     width: 90%;
     margin: 0 auto;
-    background-color: gray;
+    background-color: white;
 }
 
 .selectBox{
@@ -30,7 +32,7 @@ header{
     width: 250px;
     padding-top: 20px;
     label{
-        color: white;
+        color: black;
         font-size: 20px;
         font-family: 'Walter';
     }
@@ -38,7 +40,7 @@ header{
         font-family: 'Walter';
         background: none;
         font-size: 16px;
-        color: white;
+        color: black;
         border: none;
         border-bottom: 1px solid darkslategrey;
         option{
@@ -58,7 +60,7 @@ header{
     span{
         margin-right: 20px;
         font-family: 'Walter';
-        color: white;
+        color: black;
         font-size: 22px;
     }
 }
@@ -183,7 +185,7 @@ button#start{
         margin-left: 20px;
         border-radius: 5px;
         border: 1px solid black;
-        text-align: right;
+        text-align: center;
     
     }
 }
@@ -204,7 +206,7 @@ button#start{
         font-family: 'Walter';
         font-size: 22px;
     }
-    button{
+    button#check{
         display: block;
         margin: 0 auto;
         font-family: 'Walter';
@@ -220,7 +222,7 @@ button#start{
 
 .scoreMessage{
     position: absolute;
-    background-color: white;
+    background-color: #e4e4e4;
     margin: 0 auto;
     width: 350px;
     top: 0;
@@ -228,11 +230,36 @@ button#start{
     transform: translateX(-50%);
     padding-top: 15px;
     border-radius: 5px;
+    border: 1px solid black;
     h2,h4{
         text-align: center;
         font-family: 'Walter';
     }
+    .saveResult{
+        display: none;
+        padding: 10px 20px;
+        width: 60%;
+        margin: 0 auto;
+        #playerName{
+            width: 50%;
+            height: 30px;
+            text-align: center;
+            display: inline-block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        #save{
+            width: 45%;
+            background-color: yellow;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0 auto;
+            font-family: 'Walter';
+            padding: 6px;
+        }
+    }
 }
+
 
 .buttonWrap{
     display: flex;
@@ -258,6 +285,84 @@ button#start{
     font-size: 24px;
     width: 250px;
     margin: 0 auto;
-    color: white;
+    color: black;
     padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#showScores{
+    display: block;
+    margin: 0 auto;
+    font-family: 'Walter';
+    padding: 10px;
+    background-color: yellow;
+    color: black;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid black;
+    //margin-top: 20px;
+}
+
+#scores{
+    background-color: white;
+    font-family: 'Walter';
+    width: 300px;
+    min-height: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+    .closeBtn{
+        position: relative;
+        left: 96%;
+        top: -15px;
+        width: 20px;
+        height: 20px;
+        &:hover #close1, &:hover #close2{
+            border: 1px solid red;
+        }
+        #close1{
+            width: 20px;
+            border: 1px solid black;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transform: rotate(45deg);
+        }
+        #close2{
+            width: 20px;
+            border: 1px solid black;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transform: rotate(-45deg);
+        }
+    }
+    p{
+        text-align: center;
+        margin-bottom:  5px;
+    }
+    h4{
+        margin-top: 10px;
+    }
+}
+
+footer{
+    background-color: black;
+    .footerInfo{
+        background-color: black;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        h4,p{
+            color: white;
+            font-family: 'Walter';
+        }
+    } 
 }

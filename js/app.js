@@ -7,7 +7,6 @@ $(document).ready(function(){
         }
     }   
 
-
     function displayElements(type,numSq,numCir,numTri,color,positions){
         var element;
         if(type=='triangle'){
@@ -83,7 +82,8 @@ $(document).ready(function(){
     shuffle(colorsMedium);
     shuffle(positions);
     shuffle(elements);
-    var count=2;
+
+    var count = 2;
     
         countDown = setInterval(function(){
            
@@ -154,8 +154,11 @@ $(document).ready(function(){
     function handleClick(){
         
         if (button.text()=='START'){
+            result = 0;
             var elArray = startGame();
             $(answerBox[0]).attr('data-number',elArray[0].numOfElements);
+            $(answerBox[1]).attr('data-number',elArray[1].numOfElements);
+            $(answerBox[2]).attr('data-number',elArray[2].numOfElements);
             button.text('STOP');
             button.css('backgroundColor','red');
             select.attr('disabled',true).css('color','darkgray');
@@ -163,7 +166,7 @@ $(document).ready(function(){
             button.text('START');
             timeCount.text('Start!');
             button.css('backgroundColor','green');
-            select.attr('disabled',false).css('color','white');
+            select.attr('disabled',false).css('color','black');
             clearInterval(countDown);
             return false;
         }
@@ -183,26 +186,24 @@ $(document).ready(function(){
                 result++;
                 resultShow.text(result);
             } else {
-                console.log('Żle!!!');
                 button.removeClass('running');
                 gameOver();
                 return false;
             }
-
-            
+ 
         } else if (select.val()=='medium'){
-                $(inputs[0]).val('');
-                $(inputs[1]).val('');
-                $(inputs[2]).val('');
-            if($(answerBox[0]).attr('data-number')==$(inputs[0]).val() && $(answerBox[1]).attr('data-number')==$(inputs[1]).val()){
-                console.log('OK');
+            if(($(answerBox[0]).attr('data-number')==$(inputs[0]).val()) && ($(answerBox[1]).attr('data-number')==$(inputs[1]).val())){
+                //result = result + 1 * $(answerBox[0]).attr('data-number')==$(inputs[0]).val() + 1 * ($(answerBox[1]).attr('data-number')==$(inputs[1]).val());
+                result = result + 2;
+                resultShow.text(result);
                 var elArray = startGame();
                 $(answerBox[0]).attr('data-number',elArray[0].numOfElements);
                 $(answerBox[1]).attr('data-number',elArray[1].numOfElements);
                 $(inputs[0]).val('');
                 $(inputs[1]).val('');
             } else {
-                console.log('Żle!!!');
+                //result = result + 1 * $(answerBox[0]).attr('data-number')==$(inputs[0]).val() + 1 * ($(answerBox[1]).attr('data-number')==$(inputs[1]).val());
+                
                 button.removeClass('running');
                 gameOver();
                 return false;
@@ -211,6 +212,8 @@ $(document).ready(function(){
         } else if (select.val()=='hard'){
 
             if($(answerBox[0]).attr('data-number')==$(inputs[0]).val() && $(answerBox[1]).attr('data-number')==$(inputs[1]).val() && $(answerBox[2]).attr('data-number')==$(inputs[2]).val()){
+                result = result + 3;
+                resultShow.text(result);
                 var elArray = startGame();
                 $(answerBox[0]).attr('data-number',elArray[0].numOfElements);
                 $(answerBox[1]).attr('data-number',elArray[1].numOfElements);
@@ -219,13 +222,11 @@ $(document).ready(function(){
                 $(inputs[1]).val('');
                 $(inputs[2]).val('');
             } else {
-                console.log('Żle!!!');
                 button.removeClass('running');
                 gameOver();
                 return false;
             }
-
-            
+    
         }
 
     }
@@ -236,8 +237,10 @@ $(document).ready(function(){
         $(inputs[1]).val('');
         $(inputs[2]).val('');
         button.attr('disabled',false);
-        select.attr('disabled',false).css('color','white');
+        select.attr('disabled',false).css('color','black');
         button.css('backgroundColor','green');
+        saveResult.hide();
+        saveBtn.attr('disabled',false).css('background-color','yellow').css('color','black');
     }
 
     function gameOver() {
@@ -251,8 +254,77 @@ $(document).ready(function(){
         scoreMessage.css('top','40%');
         scoreMessage.find('h4').find('span').text(result);
         scoreMessage.show(1000);
+        if (result > 9){
+            saveResult.show();
+        } else {
+            saveResult.hide();
+        }
     }
 
+    function showScores() {
+        scores.show(1000).slideDown(2500);
+        closeBtn.show();
+        buttonScores.attr('disabled',true).css('background-color','darkgray');
+        scoresEasy.children().remove('p');
+        scoresMedium.children().remove('p');
+        scoresHard.children().remove('p');
+        $.ajax({
+            url: scoresUrl,
+            method: 'GET',
+            dataType: 'json'
+          }).done((response) => {
+        
+            response['easy'].sort(function(a,b){
+                return b.score - a.score;
+            });
+
+            response['medium'].sort(function(a,b){
+                return b.score - a.score;
+            });
+
+            response['hard'].sort(function(a,b){
+                return b.score - a.score;
+            });
+
+            for (var i=0;i<response['easy'].length;i++){
+                var p = $('<p>',{class: "score"});
+                p.text(response['easy'][i].name + " " + response['easy'][i].score);
+                scoresEasy.append(p);
+            } 
+
+            for (var i=0;i<response['medium'].length;i++){
+                var p = $('<p>',{class: "score"});
+                p.text(response['medium'][i].name + " " + response['medium'][i].score);
+                scoresMedium.append(p);
+            } 
+
+            for (var i=0;i<response['hard'].length;i++){
+                var p = $('<p>',{class: "score"});
+                p.text(response['hard'][i].name + " " + response['hard'][i].score);
+                scoresHard.append(p);
+            } 
+
+          }).fail((error) => {
+            console.log(error);
+          });
+    }
+
+    function saveScores(score){
+        var playerName = playerNameInput.val();
+        $.ajax({
+            url: 'http://localhost:3000/'+select.val(),
+            method: 'POST',
+            dataType: 'json',
+            data: {"name": playerName,
+                "score": score,
+            }
+          }).done(function(response){           
+
+          }).fail(function(error){
+            console.log(error);
+          });
+    }
+    
     var countDown;
     var minHorizontal = 5;
     var maxHorizontal = 300;
@@ -277,7 +349,6 @@ $(document).ready(function(){
     var maxNumOfElements;
     var colorsEasy = ["red","green","blue","yellow","orange","gray","white","magenta","aquamarine"];
     var colorsMedium = ['rgba(232,158,158,0.6)', 'rgba(146,191,162,0.5)', 'rgba(173,133,70,0.5)', 'rgba(241,232,210,0.5)'];
-    //var elements = ['square','circle','triangle'];
     var elementsHard = ['square','circle','triangleHollow'];
     var questionBox = $('.question');
     var answerBox = $('.answer');
@@ -286,7 +357,17 @@ $(document).ready(function(){
     var resultShow = $('.result').find('p').find('span');
     var scoreMessage = $('.scoreMessage');
     var buttonOK = $('.buttonWrap').find('button');
-    
+    var buttonScores = $('button#showScores');
+    var scoresUrl = "http://localhost:3000/db";
+    var scoresEasy = $('#scoresEasy');
+    var scoresMedium = $('#scoresMedium');
+    var scoresHard = $('#scoresHard');
+    var scores = $('#scores');
+    var closeBtn = $('.closeBtn');
+    var saveResult = $('.saveResult');
+    var saveBtn = $('#save');
+    var playerNameInput = $('#playerName');
+   
     resultShow.text(result);
     answerBox.hide();
     resultCheck.hide();
@@ -316,7 +397,20 @@ $(document).ready(function(){
     button.on('click',handleClick);
     buttonCheck.on('click',handleClickCheck);
     buttonOK.on('click',handleClickOK);
-   
-   
+    buttonScores.on('click',showScores);
+    
+    closeBtn.on('click',function(){
 
+        closeBtn.hide(500);
+        scores.hide(1000);
+
+        buttonScores.attr('disabled',false).css('background-color','yellow');
+        
+    });
+
+    saveBtn.on('click',function(){
+        saveScores(result);
+        saveBtn.attr('disabled',true).css('background-color','grey').css('color','white');
+    });
+    
 });

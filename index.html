@@ -2,7 +2,7 @@
 <html lang="pl-PL">
   <head>
     <meta charset="UTF-8">
-    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./js/app.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
     <title>Memory Game</title>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="topPanel">
-              <span>Time</span>
+              <span>Ready</span>
               <button id="start">START</button>
             </div>
 
@@ -62,6 +62,7 @@
           </div>
           <div class="result">
             <p>Score: <span></span></p>
+            <button id="showScores">Highscores</button>
           </div>
           
           <div class="scoreMessage">
@@ -70,10 +71,43 @@
             <div class="buttonWrap">
               <button>OK</button>
             </div>
+            <div class="saveResult">
+              <input name="name" id="playerName" placeholder="Your Name">
+              <button id="save">SAVE</button>
+            </div>
+          </div>
+          
+
+          <div id="scores">
+            <div class="closeBtn">
+              <div id="close1"></div>
+              <div id="close2"></div>
+            </div>
+            <div id="scoresEasy">
+              <h4>Easy</h4>
+            </div>
+  
+            <div id="scoresMedium">
+              <h4>Medium</h4>
+            </div>
+  
+            <div id="scoresHard">
+              <h4>Hard</h4>
+            </div>
           </div>
 
         </div>
     </section>
+
+    <footer>
+      <div class="container">
+        <div class="footerInfo">
+          <h4>MEMORY GAME</h4>
+          <p>A.D. </p>
+        </div>
+      </div>
+    </footer>
+
 
   </body>
 </html>
