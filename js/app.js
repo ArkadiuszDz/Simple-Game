@@ -26,18 +26,15 @@ $(document).ready(function(){
 
     function displayElement(type,color,number){
         var element;
-        if(type=='triangle'){
-            
+        if(type=='triangle'){  
                 element = $('<div>',{class: type}).css('borderBottomColor', color);
                 $(questionBox[number]).append(element);
             
         } else if (type=='triangleHollow'){
             
         } else {
-            
                 element = $('<div>',{class: type}).css('backgroundColor', color);
                 $(questionBox[number]).append(element);
-            
         }
     }
 
@@ -152,7 +149,7 @@ $(document).ready(function(){
     }
 
     function handleClick(){
-        
+        resultShow.text(0);
         if (button.text()=='START'){
             result = 0;
             var elArray = startGame();
@@ -193,7 +190,7 @@ $(document).ready(function(){
  
         } else if (select.val()=='medium'){
             if(($(answerBox[0]).attr('data-number')==$(inputs[0]).val()) && ($(answerBox[1]).attr('data-number')==$(inputs[1]).val())){
-                //result = result + 1 * $(answerBox[0]).attr('data-number')==$(inputs[0]).val() + 1 * ($(answerBox[1]).attr('data-number')==$(inputs[1]).val());
+                
                 result = result + 2;
                 resultShow.text(result);
                 var elArray = startGame();
@@ -202,8 +199,7 @@ $(document).ready(function(){
                 $(inputs[0]).val('');
                 $(inputs[1]).val('');
             } else {
-                //result = result + 1 * $(answerBox[0]).attr('data-number')==$(inputs[0]).val() + 1 * ($(answerBox[1]).attr('data-number')==$(inputs[1]).val());
-                
+
                 button.removeClass('running');
                 gameOver();
                 return false;
@@ -226,9 +222,7 @@ $(document).ready(function(){
                 gameOver();
                 return false;
             }
-    
         }
-
     }
 
     function handleClickOK(){
@@ -403,7 +397,6 @@ $(document).ready(function(){
 
         closeBtn.hide(500);
         scores.hide(1000);
-
         buttonScores.attr('disabled',false).css('background-color','yellow');
         
     });

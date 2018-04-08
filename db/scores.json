@@ -21,6 +21,11 @@
       "name": "Bear",
       "score": 20,
       "id": 2
+    },
+    {
+      "name": "Kerr",
+      "score": "18",
+      "id": 3
     }
   ],
   "hard": [
